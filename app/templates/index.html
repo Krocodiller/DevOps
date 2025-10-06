@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Медицинский Кооператив - Система Управления</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏥 Медицинский Кооператив</h1>
+            <p>Система управления пациентами, врачами и медицинскими записями</p>
+            {% if user %}
+            <div class="user-info">
+                <span class="user-name">👤 {{ user.name }}</span>
+                <span class="user-role">{{ 'Администратор' if user.role == 'admin' else 'Врач' }}</span>
+                <a href="/logout" class="logout-btn">Выйти</a>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('patients')">👥 Пациенты</button>
+            {% if user and user.role == 'admin' %}
+            <button class="nav-tab" onclick="showTab('doctors')">👨‍⚕️ Врачи</button>
+            {% endif %}
+            <button class="nav-tab" onclick="showTab('medicines')">💊 Лекарства</button>
+            <button class="nav-tab" onclick="showTab('visits')">📋 Визиты</button>
+            <button class="nav-tab" onclick="showTab('analytics')">📊 Аналитика</button>
+        </div>
+
+        <!-- Панель пациентов -->
+        <div id="patients" class="tab-content active">
+            <h2>👥 Управление Пациентами</h2>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3>Добавить нового пациента</h3>
+                    <form id="patientForm">
+                        <div class="form-group">
+                            <label for="patientName">Имя пациента:</label>
+                            <input type="text" id="patientName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="patientGender">Пол:</label>
+                            <select id="patientGender" class="form-control" required>
+                                <option value="">Выберите пол</option>
+                                <option value="Мужской">Мужской</option>
+                                <option value="Женский">Женский</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="patientBirthDate">Дата рождения:</label>
+                            <input type="date" id="patientBirthDate" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="patientAddress">Домашний адрес:</label>
+                            <textarea id="patientAddress" class="form-control" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Добавить пациента</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h3>Список пациентов</h3>
+                    <div id="patientsList">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            <p>Загрузка пациентов...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Панель врачей (только для администраторов) -->
+        {% if user and user.role == 'admin' %}
+        <div id="doctors" class="tab-content">
+            <h2>👨‍⚕️ Управление Врачами</h2>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3>Добавить нового врача</h3>
+                    <form id="doctorForm">
+                        <div class="form-group">
+                            <label for="doctorName">Имя врача:</label>
+                            <input type="text" id="doctorName" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Добавить врача</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h3>Список врачей</h3>
+                    <div id="doctorsList">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            <p>Загрузка врачей...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Панель лекарств -->
+        <div id="medicines" class="tab-content">
+            <h2>💊 Управление Лекарствами</h2>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3>Добавить новое лекарство</h3>
+                    <form id="medicineForm">
+                        <div class="form-group">
+                            <label for="medicineName">Название лекарства:</label>
+                            <input type="text" id="medicineName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="medicineUsage">Способ приема:</label>
+                            <textarea id="medicineUsage" class="form-control" rows="2" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="medicineDescription">Описание действия:</label>
+                            <textarea id="medicineDescription" class="form-control" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="medicineSideEffects">Побочные эффекты:</label>
+                            <textarea id="medicineSideEffects" class="form-control" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Добавить лекарство</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h3>Список лекарств</h3>
+                    <div id="medicinesList">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            <p>Загрузка лекарств...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Панель визитов -->
+        <div id="visits" class="tab-content">
+            <h2>📋 Управление Визитами</h2>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3>Записать новый визит</h3>
+                    <form id="visitForm">
+                        <div class="form-group">
+                            <label for="visitDate">Дата визита:</label>
+                            <input type="date" id="visitDate" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="visitLocation">Место проведения:</label>
+                            <input type="text" id="visitLocation" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="visitPatient">Пациент:</label>
+                            <select id="visitPatient" class="form-control" required>
+                                <option value="">Выберите пациента</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="visitDoctor">Врач:</label>
+                            <select id="visitDoctor" class="form-control" required>
+                                <option value="">Выберите врача</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="visitSymptoms">Симптомы:</label>
+                            <textarea id="visitSymptoms" class="form-control" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="visitDiagnosis">Диагноз:</label>
+                            <input type="text" id="visitDiagnosis" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="visitPrescriptions">Предписания:</label>
+                            <textarea id="visitPrescriptions" class="form-control" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="visitMedicines" class="optional">Назначенные лекарства:</label>
+                            <select id="visitMedicines" class="form-control" multiple>
+                            </select>
+                            <small>Удерживайте Ctrl для выбора нескольких лекарств</small>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Записать визит</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h3>История визитов</h3>
+                    <div id="visitsList">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            <p>Загрузка визитов...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Панель аналитики -->
+        <div id="analytics" class="tab-content">
+            <h2>📊 Аналитика и Отчеты</h2>
+            
+            <!-- Статистика -->
+            <div class="grid">
+                <div class="card">
+                    <h3>📈 Общая статистика</h3>
+                    <div id="statistics">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            <p>Загрузка статистики...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🏆 Популярные диагнозы</h3>
+                    <div id="popularDiagnoses">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            <p>Загрузка данных...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>💊 Популярные лекарства</h3>
+                    <div id="popularMedicines">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            <p>Загрузка данных...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Аналитические функции -->
+            <div class="grid">
+                <div class="card">
+                    <h3>Количество вызовов по дате</h3>
+                    <form id="visitsByDateForm">
+                        <div class="form-group">
+                            <label for="analyticsDate">Выберите дату:</label>
+                            <input type="date" id="analyticsDate" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-info">Показать количество</button>
+                    </form>
+                    <div id="visitsByDateResult" class="result-box" style="display: none;">
+                        <div class="result-number" id="visitsCount">0</div>
+                        <div class="result-text">вызовов в выбранный день</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Количество больных по болезни</h3>
+                    <form id="patientsByDiagnosisForm">
+                        <div class="form-group">
+                            <label for="analyticsDiagnosis">Введите диагноз:</label>
+                            <input type="text" id="analyticsDiagnosis" class="form-control" placeholder="Например: Грипп" required>
+                        </div>
+                        <button type="submit" class="btn btn-info">Показать количество</button>
+                    </form>
+                    <div id="patientsByDiagnosisResult" class="result-box" style="display: none;">
+                        <div class="result-number" id="patientsCount">0</div>
+                        <div class="result-text">пациентов с данным диагнозом</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Побочные эффекты лекарства</h3>
+                    <form id="medicineSideEffectsForm">
+                        <div class="form-group">
+                            <label for="analyticsMedicine">Выберите лекарство:</label>
+                            <select id="analyticsMedicine" class="form-control" required>
+                                <option value="">Выберите лекарство</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-warning">Показать побочные эффекты</button>
+                    </form>
+                    <div id="medicineSideEffectsResult" class="result-box" style="display: none;">
+                        <h4 id="medicineNameResult"></h4>
+                        <p id="medicineSideEffectsText"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

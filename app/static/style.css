@@ -1,0 +1,672 @@
+/* Стили для медицинского приложения */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+    overflow-x: hidden; /* Предотвращаем горизонтальную прокрутку */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    width: 100%;
+    overflow-x: hidden; /* Дополнительная защита от переполнения */
+}
+
+.header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.header h1 {
+    color: #2c3e50;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    font-weight: 300;
+}
+
+.header p {
+    color: #7f8c8d;
+    font-size: 1.1em;
+}
+
+.user-info {
+    margin-top: 20px;
+    padding: 15px 20px;
+    background: rgba(52, 152, 219, 0.1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.user-name {
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 1.1em;
+}
+
+.user-role {
+    background: #3498db;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+.logout-btn {
+    background: #e74c3c;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    background: #c0392b;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+}
+
+.nav-tabs {
+    display: flex;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.nav-tab {
+    flex: 1;
+    padding: 15px 20px;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    color: #7f8c8d;
+}
+
+.nav-tab.active {
+    background: #3498db;
+    color: white;
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+}
+
+.nav-tab:hover:not(.active) {
+    background: rgba(52, 152, 219, 0.1);
+    color: #3498db;
+}
+
+.tab-content {
+    display: none;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.form-control {
+    width: 100%;
+    max-width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e1e8ed;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+    background: rgba(255, 255, 255, 0.9);
+    resize: vertical; /* Разрешаем только вертикальное изменение размера */
+    word-wrap: break-word; /* Перенос длинных слов */
+    overflow-wrap: break-word;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-primary {
+    background: #3498db;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+.btn-success {
+    background: #27ae60;
+    color: white;
+}
+
+.btn-success:hover {
+    background: #229954;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+}
+
+.btn-info {
+    background: #17a2b8;
+    color: white;
+}
+
+.btn-info:hover {
+    background: #138496;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(23, 162, 184, 0.3);
+}
+
+.btn-warning {
+    background: #ffc107;
+    color: #212529;
+}
+
+.btn-warning:hover {
+    background: #e0a800;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+}
+
+.table {
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    table-layout: fixed; /* Фиксированная ширина колонок */
+}
+
+.table th,
+.table td {
+    padding: 12px 8px; /* Уменьшил padding для экономии места */
+    text-align: left;
+    border-bottom: 1px solid #e1e8ed;
+    word-wrap: break-word; /* Перенос длинных слов */
+    overflow-wrap: break-word;
+    vertical-align: top; /* Выравнивание по верху */
+}
+
+/* Специальные стили для колонок таблицы */
+.table th:nth-child(1), .table td:nth-child(1) { width: 20%; } /* Имя/Название */
+.table th:nth-child(2), .table td:nth-child(2) { width: 15%; } /* Пол/Способ приема */
+.table th:nth-child(3), .table td:nth-child(3) { width: 15%; } /* Дата/Описание */
+.table th:nth-child(4), .table td:nth-child(4) { width: 25%; } /* Адрес/Побочные эффекты */
+.table th:nth-child(5), .table td:nth-child(5) { width: 15%; } /* Дополнительные колонки */
+.table th:nth-child(6), .table td:nth-child(6) { width: 10%; } /* Последние колонки */
+
+/* Специальные стили для таблиц с разным количеством колонок */
+/* Таблица пациентов (4 колонки) */
+#patientsList .table th:nth-child(1), #patientsList .table td:nth-child(1) { width: 25%; }
+#patientsList .table th:nth-child(2), #patientsList .table td:nth-child(2) { width: 15%; }
+#patientsList .table th:nth-child(3), #patientsList .table td:nth-child(3) { width: 20%; }
+#patientsList .table th:nth-child(4), #patientsList .table td:nth-child(4) { width: 40%; }
+
+/* Таблица врачей (1 колонка) */
+#doctorsList .table th:nth-child(1), #doctorsList .table td:nth-child(1) { width: 100%; }
+
+/* Таблица лекарств (4 колонки) */
+#medicinesList .table th:nth-child(1), #medicinesList .table td:nth-child(1) { width: 20%; }
+#medicinesList .table th:nth-child(2), #medicinesList .table td:nth-child(2) { width: 25%; }
+#medicinesList .table th:nth-child(3), #medicinesList .table td:nth-child(3) { width: 25%; }
+#medicinesList .table th:nth-child(4), #medicinesList .table td:nth-child(4) { width: 30%; }
+
+/* Таблица визитов (6 колонок) */
+#visitsList .table th:nth-child(1), #visitsList .table td:nth-child(1) { width: 15%; }
+#visitsList .table th:nth-child(2), #visitsList .table td:nth-child(2) { width: 18%; }
+#visitsList .table th:nth-child(3), #visitsList .table td:nth-child(3) { width: 18%; }
+#visitsList .table th:nth-child(4), #visitsList .table td:nth-child(4) { width: 15%; }
+#visitsList .table th:nth-child(5), #visitsList .table td:nth-child(5) { width: 18%; }
+#visitsList .table th:nth-child(6), #visitsList .table td:nth-child(6) { width: 16%; }
+
+.table th {
+    background: #f8f9fa;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.table tr:hover {
+    background: #f8f9fa;
+}
+
+.alert {
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border-left: 4px solid;
+}
+
+.alert-success {
+    background: #d4edda;
+    border-color: #27ae60;
+    color: #155724;
+}
+
+.alert-danger {
+    background: #f8d7da;
+    border-color: #e74c3c;
+    color: #721c24;
+}
+
+.alert-info {
+    background: #d1ecf1;
+    border-color: #17a2b8;
+    color: #0c5460;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+    width: 100%;
+    max-width: 100%;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden; /* Предотвращаем переполнение карточек */
+    word-wrap: break-word;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 1.3em;
+}
+
+.result-box {
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+.result-number {
+    font-size: 3em;
+    font-weight: bold;
+    color: #3498db;
+    margin-bottom: 10px;
+}
+
+.result-text {
+    font-size: 1.2em;
+    color: #7f8c8d;
+}
+
+.loading {
+    display: none;
+    text-align: center;
+    padding: 20px;
+}
+
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Дополнительные стили для предотвращения переполнения */
+.tab-content {
+    overflow-x: auto; /* Горизонтальная прокрутка при необходимости */
+    max-width: 100%;
+}
+
+.form-group {
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.btn {
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Специальные стили для select элементов */
+select.form-control {
+    max-width: 100%;
+    overflow: hidden;
+}
+
+/* Стили для textarea */
+textarea.form-control {
+    min-height: 80px;
+    max-height: 200px;
+}
+
+/* Стили для select с множественным выбором */
+select[multiple].form-control {
+    min-height: 100px;
+    max-height: 150px;
+}
+
+/* Стили для подсказок */
+small {
+    display: block;
+    margin-top: 5px;
+    color: #6c757d;
+    font-size: 0.875em;
+}
+
+/* Стили для обязательных полей */
+.form-group label::after {
+    content: " *";
+    color: #e74c3c;
+}
+
+/* Стили для необязательных полей */
+.form-group label.optional::after {
+    content: "";
+}
+
+/* Стили для кнопок в формах */
+.form-group .btn {
+    margin-top: 10px;
+    width: auto;
+    min-width: 120px;
+}
+
+/* Стили для группировки кнопок */
+.btn-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.btn-group .btn {
+    flex: 1;
+    min-width: 100px;
+}
+
+/* Стили для статистики */
+#statistics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-around;
+}
+
+#statistics .result-box {
+    flex: 1;
+    min-width: 120px;
+    max-width: 150px;
+    margin: 5px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .nav-tabs {
+        flex-direction: column;
+    }
+    
+    .nav-tab {
+        margin-bottom: 5px;
+        font-size: 0.9em;
+        padding: 12px 15px;
+    }
+    
+    .header h1 {
+        font-size: 2em;
+    }
+    
+    .header p {
+        font-size: 1em;
+    }
+    
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .card {
+        padding: 15px;
+    }
+    
+    .table {
+        font-size: 0.9em;
+    }
+    
+    .table th,
+    .table td {
+        padding: 8px 6px;
+    }
+    
+    /* Убираем фиксированную ширину колонок на мобильных */
+    .table {
+        table-layout: auto;
+    }
+    
+    .table th:nth-child(1), .table td:nth-child(1),
+    .table th:nth-child(2), .table td:nth-child(2),
+    .table th:nth-child(3), .table td:nth-child(3),
+    .table th:nth-child(4), .table td:nth-child(4),
+    .table th:nth-child(5), .table td:nth-child(5),
+    .table th:nth-child(6), .table td:nth-child(6) {
+        width: auto;
+    }
+    
+    .result-number {
+        font-size: 2em;
+    }
+    
+    .result-text {
+        font-size: 1em;
+    }
+    
+    #statistics {
+        flex-direction: column;
+    }
+    
+    #statistics .result-box {
+        max-width: 100%;
+        margin: 5px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 5px;
+    }
+    
+    .header {
+        padding: 20px;
+    }
+    
+    .header h1 {
+        font-size: 1.8em;
+    }
+    
+    .tab-content {
+        padding: 20px;
+    }
+    
+    .card {
+        padding: 12px;
+    }
+    
+    .form-control {
+        padding: 10px 12px;
+        font-size: 0.9em;
+    }
+    
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.9em;
+    }
+    
+    .table {
+        font-size: 0.8em;
+    }
+    
+    .table th,
+    .table td {
+        padding: 6px 4px;
+    }
+    
+    /* Скрываем менее важные колонки на очень маленьких экранах */
+    .table th:nth-child(4),
+    .table td:nth-child(4),
+    .table th:nth-child(5),
+    .table td:nth-child(5),
+    .table th:nth-child(6),
+    .table td:nth-child(6) {
+        display: none;
+    }
+    
+    /* Показываем только первые 3 колонки */
+    .table th:nth-child(1), .table td:nth-child(1) { width: 40%; }
+    .table th:nth-child(2), .table td:nth-child(2) { width: 30%; }
+    .table th:nth-child(3), .table td:nth-child(3) { width: 30%; }
+}
+
+/* Дополнительные стили для улучшения читаемости */
+.table td {
+    line-height: 1.4;
+}
+
+/* Стили для длинного текста в ячейках */
+.table td.long-text {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.table td.long-text:hover {
+    white-space: normal;
+    word-wrap: break-word;
+    max-width: none;
+    position: relative;
+    z-index: 10;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Стили для улучшения контрастности */
+.form-control:invalid {
+    border-color: #e74c3c;
+}
+
+.form-control:valid {
+    border-color: #27ae60;
+}
+
+/* Стили для улучшения доступности */
+.btn:focus,
+.form-control:focus {
+    outline: 2px solid #3498db;
+    outline-offset: 2px;
+}
+
+/* Стили для улучшения производительности */
+.card,
+.table,
+.form-control {
+    will-change: transform;
+}
+
+/* Стили для печати */
+@media print {
+    .nav-tabs,
+    .btn,
+    .form-group {
+        display: none;
+    }
+    
+    .tab-content {
+        display: block !important;
+        box-shadow: none;
+        background: white;
+    }
+    
+    .table {
+        font-size: 12px;
+    }
+}
