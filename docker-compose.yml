@@ -12,6 +12,7 @@ services:
       - ./data:/app/data
       - ./app/templates:/app/templates
       - ./app/static:/app/static
+      - ./app:/app
     depends_on:
       - redis
     environment:

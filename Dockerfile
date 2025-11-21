@@ -14,3 +14,4 @@ RUN mkdir -p data
 EXPOSE 5000
 
 CMD ["python","-c", "from app import app; app.run(host='0.0.0.0', port=5000, debug=True)"]
+
