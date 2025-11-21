@@ -6,9 +6,10 @@ import os
 from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
 import redis
+'''from models import User, db'''
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////app/medical_cooperative.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////app/data/medical_cooperative.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'your-secret-key-here'
 
@@ -244,7 +245,28 @@ def doctors():
         db.session.add(doctor)
         db.session.commit()
         return jsonify({'message': 'Doctor added successfully'})
-
+        
+'''@app.before_request
+def create_test_user():
+    from werkzeug.security import generate_password_hash
+    from app.models import User
+    
+    # Проверяем, не выполнялся ли уже этот код
+    if not hasattr(app, 'test_user_created'):
+        if not User.query.first():
+            user = User(
+                username='test',
+                email='test@test.com',
+                password_hash=generate_password_hash('test123')
+            )
+            db.session.add(user)
+            db.session.commit()
+            print("Создан тестовый пользователь: test/test123")
+            print("******* ******* ******* *******")
+        
+        # Устанавливаем флаг, что код уже выполнен
+        app.test_user_created = True   
+        '''
 # API для лекарств
 @app.route('/api/medicines', methods=['GET', 'POST'])
 @doctor_or_admin_required
