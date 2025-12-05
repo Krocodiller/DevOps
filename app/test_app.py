@@ -3,6 +3,7 @@ from app import app, redis_client
 
 @pytest.fixture
 def client():
+    """Тестовый клиент Flask."""
     with app.test_client() as client:
         yield client
 
@@ -10,7 +11,7 @@ def test_home_page(client):
     """Простой тест главной страницы."""
     response = client.get('/')
     assert response.status_code == 200
-    assert b'Медицинский Кооператив' in response.data
+    assert 'Медицинский Кооператив' in response.data.decode('utf-8')  # ← исправлено!
 
 def test_redis_works():
     """Простой тест Redis."""
