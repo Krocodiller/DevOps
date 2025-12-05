@@ -198,7 +198,7 @@ def test_always_successful():
 def test_can_be_made_to_fail():
     """Тест который можно заставить упасть для демонстрации."""
     # Для нормальной работы:
-    should_pass = True
+    should_pass = False
     
     # Для демонстрации неудачного теста в лабораторной:
     # should_pass = False
