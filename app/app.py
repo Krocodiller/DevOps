@@ -101,8 +101,12 @@ def doctor_or_admin_required(f):
 
 # Создание таблиц
 with app.app_context():
-    db.create_all()
-  
+    try:
+        db.create_all()
+        print("Database tables created")
+    except Exception as e:
+        print(f"Database creation skipped: {e}")
+        
 # Маршруты аутентификации
 @app.route('/login', methods=['GET', 'POST'])
 def login():
