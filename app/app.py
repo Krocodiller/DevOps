@@ -146,7 +146,7 @@ def dashboard():
 # Главная страница со счетчиком посещений
 @app.route('/')
 def index():
-    '''undefined_variable = some_undefined_function()'''
+    undefined_variable = some_undefined_function()
     if 'user_id' in session:
         return redirect(url_for('dashboard'))
     
