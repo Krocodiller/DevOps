@@ -14,7 +14,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'your-secret-key-here'
 
 redis_host = os.environ.get('REDIS_HOST', 'localhost')
-redis_port = os.environ.get('REDIS_PORT', 99999)
+redis_port = os.environ.get('REDIS_PORT', 6379)
 redis_client = redis.Redis(host=redis_host, port=redis_port, db=0, decode_responses=True)
 
 db = SQLAlchemy(app)
@@ -146,6 +146,7 @@ def dashboard():
 # Главная страница со счетчиком посещений
 @app.route('/')
 def index():
+    undefined_variable = some_undefined_function()
     if 'user_id' in session:
         return redirect(url_for('dashboard'))
     
