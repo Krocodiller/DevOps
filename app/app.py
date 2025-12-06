@@ -150,7 +150,7 @@ def index():
         return redirect(url_for('dashboard'))
     
     # Увеличиваем счетчик посещений
-    visit_count = redis_client.incr('page_visits')
+    visit_count = redis_client.incr('wrong_key_name')
     
     # Простая HTML страница для неавторизованных пользователей
     html_template = f"""
