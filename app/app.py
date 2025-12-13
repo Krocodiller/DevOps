@@ -35,6 +35,7 @@ class Patient(db.Model):
     gender = db.Column(db.String(10), nullable=False)
     birth_date = db.Column(db.Date, nullable=False)
     address = db.Column(db.String(200), nullable=False)
+    phone = db.Column(db.String(20), nullable=True)
     visits = db.relationship('Visit', backref='patient', lazy=True)
 
 class Doctor(db.Model):
@@ -218,7 +219,8 @@ def patients():
             'name': p.name,
             'gender': p.gender,
             'birth_date': p.birth_date.isoformat(),
-            'address': p.address
+            'address': p.address,
+            'phone': p.phone
         } for p in patients])
     
     elif request.method == 'POST':
@@ -227,7 +229,8 @@ def patients():
             name=data['name'],
             gender=data['gender'],
             birth_date=datetime.strptime(data['birth_date'], '%Y-%m-%d').date(),
-            address=data['address']
+            address=data['address'],
+            phone=data.get('phone')
         )
         db.session.add(patient)
         db.session.commit()
